@@ -1,0 +1,28 @@
+<h1>Teams list</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>country</th>
+            <th>founded</th>
+            <th>description</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @teams.each do |team| %>
+        <tr>
+            <td><%= team.name%></td>
+            <td><%= team.country%></td>
+            <td><%= team.founded%></td>
+            <td><%= team.description%></td>
+            <td><%= link_to "show", team_path(team) %></td>
+            <td><%= link_to "Edit", edit_team_path(team) %></td>
+            <td><%= button_to "Delete", team_path(team), method: :delete, onclick: "return confirm('Are you sure?');" %> </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<p>
