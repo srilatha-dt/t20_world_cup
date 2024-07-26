@@ -1,5 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
+
 <%= render @player %>
 
 <div>
@@ -7,5 +8,6 @@
   <%= link_to "Back to players", players_path %>
 
   
-  <td><%= button_to "Delete", player_path(player), method: :delete, onclick: "return confirm('Are you sure?');" %> </td>
+  <td><%= button_to "Delete", player_path(@player), method: :delete, onclick: "return confirm('Are you sure?');" %> </td>
+  
 </div>

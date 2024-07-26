@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_19_082623) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_024039) do
+  create_table "playeers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.string "position"
+    t.bigint "team_id", null: false
+    t.string "role"
+    t.boolean "is_captain"
+    t.boolean "is_active"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_playeers_on_team_id"
+  end
 
   create_table "players", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -26,6 +39,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_082623) do
     t.bigint "team_id_id"
     t.text "descriptionn"
     t.string "role", null: false
+    t.bigint "team_id", null: false
+    t.index ["team_id"], name: "index_players_on_team_id"
     t.index ["team_id_id"], name: "index_players_on_team_id_id"
     t.index ["user_id_id"], name: "index_players_on_user_id_id"
   end
@@ -40,4 +55,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_082623) do
   end
 
   add_foreign_key "playeers", "teams"
+  add_foreign_key "players", "teams"
 end

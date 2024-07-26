@@ -1,4 +1,6 @@
-<p style="color: green"><%= notice %></p>
+<%
+=begin%>
+ <p style="color: green"><%= notice %></p>
 
 <h1>Players</h1>
 
@@ -12,4 +14,45 @@
 </div>
 
 <%= link_to "New player", new_player_path %>
+ 
+<%
+=end%>
 
+
+<h2>Player Details</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Position</th>
+      <th>Team</th>
+      <th>Role</th>
+      <th>Is Captain</th>
+      <th>Is Active</th>
+      <th>Description</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+    <tr id="<%= dom_id(player) %>">
+      <td><%= player.name %></td>
+      <td><%= player.age %></td>
+      <td><%= player.position %></td>
+      <td><%= player.team.name %></td>
+      <td><%= player.role %></td>
+      <td><%= player.is_captain %></td>
+      <td><%= player.is_active %></td>
+      <td><%= player.description %></td>
+      <td><%= link_to "show", player_path(player) %></td>
+      <td><%= link_to "Edit", edit_player_path(player) %></td>
+      <td><%= button_to "Delete", player_path(player), method: :delete, onclick: "return confirm('Are you sure?');" %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<td><%= link_to "Add New Player", new_player_path %></td>
