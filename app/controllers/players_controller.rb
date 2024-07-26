@@ -1,6 +1,10 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[ show edit update destroy ]
 
+  #before_action :authenticate_user!, except: [:index, :show]
+  
+
+
   # GET /players or /players.json
   def index
     @players = Player.all
@@ -50,11 +54,17 @@ class PlayersController < ApplicationController
 
   # DELETE /players/1 or /players/1.json
   def destroy
-    @player.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
-      format.json { head :no_content }
+    @player.destroy 
+    if @player.is_captain?
+      respond_to do |format|
+        format.html { redirect_to players_url, notice: "Captain can be deleted." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to players_url, notice: "Player destroyed successfully." }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -68,4 +78,8 @@ class PlayersController < ApplicationController
     def player_params
       params.require(:player).permit(:name, :age, :position, :team_id, :role, :is_captain, :is_active, :description)
     end
+     
+    
+  
+
 end
